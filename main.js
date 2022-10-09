@@ -10,6 +10,7 @@ let see_btn = document.getElementById('see_btn')
 let input_f = document.getElementById('msg_btn')
 let msg_box = document.getElementById('msg_box')
 let clic_share = document.getElementById('click_share')
+var festDate = "10/24/2022"
 
 function getCurrentTime(date) {
     let d_dt = new Date(date)
@@ -24,17 +25,21 @@ function getCurrentTime(date) {
     return `${diffDays}  Din  ${diffHour}  ghante ${diffMin} minutee  ${diffSec} sec`
 }
 var timer = null
+var name = input_f.value
 let msgFunction = function(){
-    let name = input_f.value
    if(timer){
     clearInterval(timer)
    }
    timer = setInterval(function(){
-        msg_box.innerHTML = `Hi ${name} appko diwali ki  ${getCurrentTime("10/24/2022")} phele bdhai`
+        msg_box.innerHTML = `Hi ${name} appko diwali ki  ${getCurrentTime(festDate)} phele bdhai`
 
     },1)
 }
-see_btn.addEventListener('click',msgFunction)
+see_btn.addEventListener('click',function(){
+    name = input_f.value
+    msgFunction()
+})
+
 clic_share.addEventListener('click',function(){
     let link  = `http://127.0.0.1:5500/index.html?c=${input_f.value}`
 
@@ -46,11 +51,5 @@ var url = new URL(url_string);
 var name = url.searchParams.get("c");
 if( name!='null'){
 
-    if(timer){
-        clearInterval(timer)
-       }
-       timer = setInterval(function(){
-            msg_box.innerHTML = `Hi ${name} appko diwali ki  ${getCurrentTime("10/24/2022")} phele bdhai`
-    
-        },1)
+    msgFunction()
 }
